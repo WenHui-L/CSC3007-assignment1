@@ -5,6 +5,7 @@
   <script src="jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="./bootstrap-5.2.0-beta1-dist/css/bootstrap.min.css" />
   <script src="./bootstrap-5.2.0-beta1-dist/js/bootstrap.min.js"></script>
+
   <style>
     body {
       background-image: linear-gradient(to left bottom, #85CEC9, #ddb7f4, #81EAE6);
@@ -19,6 +20,15 @@
   </style>
   <script>
 
+    function convertTimestamp(string_datetime) {
+      var dateTimestamp = new Date(string_datetime);
+      date_convert = dateTimestamp.toLocaleDateString('en-GB');
+      time_convert = dateTimestamp.toLocaleTimeString('en-US');
+      result_datetime = date_convert + " " + time_convert
+      return result_datetime
+
+    }
+
     $(document).ready(function () {
       let url_api = 'https://api.data.gov.sg/v1/environment/psi'
       $.ajax({
@@ -26,11 +36,15 @@
         contentType: "application/json",
         dataType: 'json',
         success: function (result) {
+          string_datetime = result.items[0].update_timestamp
+          test = convertTimestamp(string_datetime) 
+
           $.each(result.items[0].readings, function (key, value) {
             let data = '<tr>' + '<td scope="row">' + key + '</td>' + '<td>' + value.national + '</td>' + '<td>' + value.central + '</td>' + '<td>'
-              + value.west + '</td>' + '<td>' + value.east + '</td>' + '<td>' + value.north + '</td>' + '<td>' + value.south + '</td>' + '</tr>'
+              + value.west + '</td>' + '<td>' + value.east + '</td>' + '<td>' + value.north + '</td>' + '<td>' + value.south + '</td>' +  '<td>'+  test + '</td>' + '</tr>'
             $("#insert_data").append(data);
           });
+
         }
       })
     });
@@ -38,7 +52,6 @@
   </script>
 </head>
 
-<!--Table  table table-striped w-auto -->
 <table class="table">
   <thead class="thead-dark" id="insert_data">
     <tr class="background_row">
@@ -49,13 +62,12 @@
       <th scope="col">East</th>
       <th scope="col">North</th>
       <th scope="col">South</th>
+      <th scope="col">Updated Timestamp</th>
     </tr>
   </thead>
   <tbody>
 
   </tbody>
 </table>
-
-<!--Table-->
 
 </html>
