@@ -1,0 +1,61 @@
+<html>
+
+<head>
+  <title>Assignment 1</title>
+  <script src="jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="./bootstrap-5.2.0-beta1-dist/css/bootstrap.min.css" />
+  <script src="./bootstrap-5.2.0-beta1-dist/js/bootstrap.min.js"></script>
+  <style>
+    body {
+      background-image: linear-gradient(to left bottom, #85CEC9, #ddb7f4, #81EAE6);
+    }
+
+
+    .background_row{
+      background-color: lightcoral;
+      color : black;
+    }
+  
+  </style>
+  <script>
+
+    $(document).ready(function () {
+      let url_api = 'https://api.data.gov.sg/v1/environment/psi'
+      $.ajax({
+        url: url_api,
+        contentType: "application/json",
+        dataType: 'json',
+        success: function (result) {
+          $.each(result.items[0].readings, function (key, value) {
+            let data = '<tr>' + '<td scope="row">' + key + '</td>' + '<td>' + value.central + '</td>' + '<td>' + value.east + '</td>' + '<td>'
+              + value.national + '</td>' + '<td>' + value.north + '</td>' + '<td>' + value.south + '</td>' + '<td>' + value.west + '</td>' + '</tr>'
+            $("#insert_data").append(data);
+          });
+        }
+      })
+    });
+
+  </script>
+</head>
+
+<!--Table  table table-striped w-auto -->
+<table class="table">
+  <thead class="thead-dark" id="insert_data">
+    <tr class="background_row">
+      <th scope="col">Region Metadata Name</th>
+      <th scope="col">Central</th>
+      <th scope="col">East</th>
+      <th scope="col">National</th>
+      <th scope="col">North</th>
+      <th scope="col">South</th>
+      <th scope="col">West</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  </tbody>
+</table>
+
+<!--Table-->
+
+</html>
