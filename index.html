@@ -27,8 +27,8 @@
         dataType: 'json',
         success: function (result) {
           $.each(result.items[0].readings, function (key, value) {
-            let data = '<tr>' + '<td scope="row">' + key + '</td>' + '<td>' + value.central + '</td>' + '<td>' + value.east + '</td>' + '<td>'
-              + value.national + '</td>' + '<td>' + value.north + '</td>' + '<td>' + value.south + '</td>' + '<td>' + value.west + '</td>' + '</tr>'
+            let data = '<tr>' + '<td scope="row">' + key + '</td>' + '<td>' + value.national + '</td>' + '<td>' + value.central + '</td>' + '<td>'
+              + value.west + '</td>' + '<td>' + value.east + '</td>' + '<td>' + value.north + '</td>' + '<td>' + value.south + '</td>' + '</tr>'
             $("#insert_data").append(data);
           });
         }
@@ -42,13 +42,13 @@
 <table class="table">
   <thead class="thead-dark" id="insert_data">
     <tr class="background_row">
-      <th scope="col">Region Metadata Name</th>
-      <th scope="col">Central</th>
-      <th scope="col">East</th>
+      <th scope="col">Metric</th>
       <th scope="col">National</th>
+      <th scope="col">Central</th>
+      <th scope="col">West</th>
+      <th scope="col">East</th>
       <th scope="col">North</th>
       <th scope="col">South</th>
-      <th scope="col">West</th>
     </tr>
   </thead>
   <tbody>
